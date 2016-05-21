@@ -67,11 +67,11 @@ task wrapper(type: Wrapper) {
 grailsPublish {
 	user = 'salex772'
 	key = 'c32a7a4faf99dace0d8716dd24aee832a905d1c8'
-	githubSlug = 'salex772/i18nSourceToJavaScript'
+	githubSlug = 'salex772/i18n-javascript'
 	license {
 		name = 'Apache-2.0'
 	}
-	title = "Grails i18nSourceToJavaScript plugin"
+	title = "Grails i18n-javascript plugin"
 	desc = "Render all Grails i18n messages to Javascript"
 	developers = [salex772: "Alexander Shamshurin"]
 }

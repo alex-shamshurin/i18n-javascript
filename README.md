@@ -12,7 +12,7 @@
 Add to build.gradle
 	
     dependencies {
-         compile "org.grails.plugins:i18nSourceToJavaScript:0.4.0"
+         compile "org.grails.plugins:i18n-javascript:0.4.1"
     } 
     
 ### Config

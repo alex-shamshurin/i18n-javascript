@@ -5,8 +5,6 @@ import org.grails.spring.context.support.PluginAwareResourceBundleMessageSource
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-//I18nJavascriptGrailsPlugin
-
 class I18nJavascriptGrailsPlugin extends Plugin
 {
 	Logger logger         = LoggerFactory.getLogger(getClass())
