@@ -8,13 +8,12 @@ class I18nJsTagLib {
 
 	def i18NService
 
-	def i18nJs = { attrs, body ->
+	def i18nJs = { attrs ->
 
 		Locale locale = RequestContextUtils.getLocale(request)
 		String messages = i18NService.messagesToJavaScript(locale)
 
-
-		String script = """
+		out  << """
 		<script type=text/javascript>
 			function I18N() {
 				this.messages = {};
@@ -29,7 +28,5 @@ class I18nJsTagLib {
 			window.I18N.setMessages(JSON.parse('$messages'));
 		</script>
 		"""
-
-		out  << script
 	}
 }

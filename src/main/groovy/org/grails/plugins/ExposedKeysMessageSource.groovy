@@ -1,6 +1,7 @@
 package org.grails.plugins
 
 import org.grails.spring.context.support.PluginAwareResourceBundleMessageSource
+import org.grails.spring.context.support.ReloadableResourceBundleMessageSource.PropertiesHolder
 
 class ExposedKeysMessageSource extends PluginAwareResourceBundleMessageSource
 {
@@ -8,25 +9,13 @@ class ExposedKeysMessageSource extends PluginAwareResourceBundleMessageSource
 	List prefixInclude
 	List prefixExclude
 
-	public Set getAllKeys(Locale locale)
+	Set getAllKeys(Locale locale)
 	{
-
-		org.grails.spring.context.support.ReloadableResourceBundleMessageSource.PropertiesHolder props = getMergedProperties(locale)
-		Set propsSet = props.getProperties().keySet()
-
-		Set returnSet = [] as Set
-		returnSet.addAll(propsSet)
-
-		return returnSet
+		[] + getMergedProperties(locale).properties.keySet()
 	}
 
-	public List<org.grails.spring.context.support.ReloadableResourceBundleMessageSource.PropertiesHolder> getAllProperties(Locale locale)
+	List<PropertiesHolder> getAllProperties(Locale locale)
 	{
-		List<org.grails.spring.context.support.ReloadableResourceBundleMessageSource.PropertiesHolder> holders = []
-		holders << getMergedProperties(locale)
-
-		holders
-
+		[getMergedProperties(locale)]
 	}
-
 }

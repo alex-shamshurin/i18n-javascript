@@ -8,8 +8,6 @@ class I18NService {
 
 	/**
 	 * Filter a key according to plugin settings
-	 * @param key
-	 * @return
 	 */
 	private boolean keyAllowed(String key) {
 		String keyPart = key
@@ -17,11 +15,11 @@ class I18NService {
 		if (firstDotIndex > 0) {
 			keyPart = key.substring(0, firstDotIndex)
 		}
-		if (!messageSource.prefixInclude.isEmpty() && !(keyPart in messageSource.prefixInclude)) {
+		if (messageSource.prefixInclude && !(keyPart in messageSource.prefixInclude)) {
 			return false
 		}
 
-		if (!messageSource.prefixExclude.isEmpty() && (keyPart in messageSource.prefixExclude)) {
+		if (messageSource.prefixExclude && (keyPart in messageSource.prefixExclude)) {
 			return false
 		}
 
@@ -29,18 +27,15 @@ class I18NService {
 	}
 
 	/**
-	 * Get's all messages for the Locale and  encode to a JSON String.
+	 * Gets all messages for the Locale and encodes to a JSON String.
 	 */
 	String messagesToJavaScript(Locale locale) {
 
 		def messages = [:]
 
-		def holders = messageSource.getAllProperties(locale)
-
-		for(def holder : holders) {
+		for(holder in messageSource.getAllProperties(locale)) {
 			Map props = holder.getProperties()
-			Set keys = props.keySet()
-			for(String key : keys) {
+			for(String key in props.keySet()) {
 				if (keyAllowed(key)) {
 					messages[key] = props.get(key)
 				}
@@ -48,7 +43,5 @@ class I18NService {
 		}
 
 		return ((messages as JSON).encodeAsJavaScript())
-
 	}
-
 }
