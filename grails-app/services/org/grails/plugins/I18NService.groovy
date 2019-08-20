@@ -4,7 +4,7 @@ import grails.converters.JSON
 
 class I18NService {
 	/** Dependency Injection for ExposedKeysMessageSource */
-	ExposedKeysMessageSource messageSource
+	ExposedKeysMessageSource jsMessageSource
 
 	/**
 	 * Filter a key according to plugin settings
@@ -15,11 +15,11 @@ class I18NService {
 		if (firstDotIndex > 0) {
 			keyPart = key.substring(0, firstDotIndex)
 		}
-		if (messageSource.prefixInclude && !(keyPart in messageSource.prefixInclude)) {
+		if (jsMessageSource.prefixInclude && !(keyPart in jsMessageSource.prefixInclude)) {
 			return false
 		}
 
-		if (messageSource.prefixExclude && (keyPart in messageSource.prefixExclude)) {
+		if (jsMessageSource.prefixExclude && (keyPart in jsMessageSource.prefixExclude)) {
 			return false
 		}
 
@@ -33,7 +33,7 @@ class I18NService {
 
 		def messages = [:]
 
-		for(holder in messageSource.getAllProperties(locale)) {
+		for(holder in jsMessageSource.getAllProperties(locale)) {
 			Map props = holder.getProperties()
 			for(String key in props.keySet()) {
 				if (keyAllowed(key)) {
