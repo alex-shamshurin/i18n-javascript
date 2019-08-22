@@ -20,23 +20,8 @@ class I18nJavascriptGrailsPlugin extends Plugin
 	Closure doWithSpring()
 	{
 		{ ->
-
-			def application = grailsApplication
-			def config = application.config
-			List prefixInclude = config.getProperty('i18nJs.prefixInclude', List, [])
-			List prefixExclude = config.getProperty('i18nJs.prefixExclude', List, [])
-
-			log.debug("i18nJs.prefixInclude: {}", prefixInclude.join(","))
-			log.debug("i18nJs.prefixExclude: {}", prefixExclude.join(","))
-
-			def beanconf = springConfig.getBeanConfig('messageSource')
-
-			def beandef = beanconf ? beanconf.beanDefinition : springConfig.getBeanDefinition('messageSource')
-
-			if (beandef?.beanClassName == PluginAwareResourceBundleMessageSource.canonicalName) {
-				beandef.beanClassName = ExposedKeysMessageSource.canonicalName
-				beandef.propertyValues.add("prefixInclude", prefixInclude)
-				beandef.propertyValues.add("prefixExclude", prefixExclude)
+			jsMessageSource(ExposedKeysMessageSource) { bean ->
+				bean.autowire = true
 			}
 		}
 	}
